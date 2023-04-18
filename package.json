@@ -1,0 +1,25 @@
+{
+  "name": "api-chat",
+  "version": "1.0.0",
+  "description": "\"This is an API based chat App\"",
+  "main": "api.js",
+  "scripts": {
+    "start":"node ./bin/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easywarhead/1H23_ChatAPI.git"
+  },
+  "author": "\"FF\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easywarhead/1H23_ChatAPI/issues"
+  },
+  "homepage": "https://github.com/easywarhead/1H23_ChatAPI#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.3.0"
+  }
+}
