@@ -15,12 +15,29 @@ async function connect() {
 async function findAll(collection) {
   const db = await connect();
   return await db.collection(collection).find().toArray();
-  
 }
 
-async function insertOne(collection, object) {
+const insertOne = async (collection, object) => {
   const db = await connect();
   return db.collection(collection).insertOne(object);
+};
+
+const findOne = async (collection, id) => {
+  const db = await connect();
+  let obj = await db
+    .collection(collection)
+    .find({ _id: new ObjectId(id._id) })
+    .toArray();
+  if (obj) {
+    return obj[0];
+  }
+  return false;
+};
+
+const updateOne = async (collection, object, param) => {
+  const db = await connect();
+  let result = await db.collection(collection).updateOne(param, { $set: object });
+  return result;
 }
 
-module.exports = { findAll, insertOne };
+module.exports = { findAll, insertOne, findOne, updateOne };
