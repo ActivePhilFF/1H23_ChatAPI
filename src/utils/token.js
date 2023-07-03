@@ -1,25 +1,27 @@
 const jwt = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET;
 
-const checkToken = async (token, key, id) => {
-  return jwt.verify(token, key, (err, decoded) => {
-    if (err) {
-      return false;
-    }
-    if (decoded.id == id) {
-      return true;
-    }
-  });
-};
-
-const setToken = async (id, key) => {
-  console.log(id);
-  if (id) {
-    return jwt.sign({ id }, key, { expiresIn: 28800 });
+const checkFullUserToken = async (token) => {
+  if (token) {
+    return jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        console.log(err);
+        console.log("Could not verify token!");
+        return false;
+      }
+      return decoded.user;
+    });
   }
   return false;
 };
+const setFullUserToken = async (user) => {
+  if (user) {
+    let token = jwt.sign({ user }, secret, { expiresIn: 28800 });
+    return token;
+  }
+};
 
 module.exports = {
-  checkToken,
-  setToken,
+  setFullUserToken,
+  checkFullUserToken,
 };

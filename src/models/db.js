@@ -34,10 +34,21 @@ const findOne = async (collection, id) => {
   return false;
 };
 
+const findOneByNick = async (collection, nick) => {
+  const db = await connect();
+  let obj = await db.collection(collection).findOne({ nick: nick.nick });
+  if (obj) {
+    return obj;
+  }
+  return false;
+};
+
 const updateOne = async (collection, object, param) => {
   const db = await connect();
-  let result = await db.collection(collection).updateOne(param, { $set: object });
+  let result = await db
+    .collection(collection)
+    .updateOne(param, { $set: object });
   return result;
-}
+};
 
-module.exports = { findAll, insertOne, findOne, updateOne };
+module.exports = { findAll, insertOne, findOne, updateOne, findOneByNick };
